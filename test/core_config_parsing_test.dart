@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/core/chart_axis_config.dart';
-import 'package:tenun/tenun.dart';
+import 'package:tenun/tenun_core.dart';
 
 void main() {
   group('Core config parsing', () {
     setUp(() {
       ChartRegistry.clear();
-      allChartsBundle.register();
+      coreChartsBundle.register();
     });
 
     test('parses JSON-like typed maps for axis and style configs', () {

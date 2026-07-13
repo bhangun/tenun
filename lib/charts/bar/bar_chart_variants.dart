@@ -23,25 +23,16 @@ import 'package:flutter/material.dart';
 import '../../core/chart_cache.dart';
 import '../../core/chart_data_signature.dart';
 import '../../core/chart_data_processor.dart';
-import '../../core/chart_model.dart';
 import '../../core/chart_painter_base.dart';
 import '../../core/chart_theme.dart';
 import '../../core/base_config.dart';
 import '../../core/chart_type.dart';
-import '../../core/grid.dart';
-import '../../core/legend.dart';
 import '../../core/series.dart';
-import '../../core/title.dart';
-import '../../core/tooltip.dart';
 import 'bar_json_helpers.dart';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SHARED HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
-
-double _readDouble(Object? value, [double fallback = 0]) {
-  return BarJson.doubleOr(value, fallback);
-}
 
 List<Series> _seriesFromJson(Object? value) => BarJson.series(value);
 
@@ -53,6 +44,27 @@ double? _seriesValueAt(Series series, int index) {
 
 double _labelRotation(Object? raw) {
   return BarJson.doubleOr(raw, 45.0).clamp(0.0, 90.0).toDouble();
+}
+
+double _innerRadius(Object? raw) {
+  return BarJson.doubleOr(raw, 0.3).clamp(0.0, 0.85).toDouble();
+}
+
+double _positiveStackTotalAt(List<Series> series, int index) {
+  double total = 0;
+  for (final item in series) {
+    final value = _seriesValueAt(item, index);
+    if (value != null && value > 0) total += value;
+  }
+  return total;
+}
+
+int _lastPositiveSeriesIndexAt(List<Series> series, int index) {
+  for (var i = series.length - 1; i >= 0; i--) {
+    final value = _seriesValueAt(series[i], index);
+    if (value != null && value > 0) return i;
+  }
+  return -1;
 }
 
 /// Draw a rounded-top rect on [canvas] (only top corners rounded).
@@ -1866,24 +1878,20 @@ class BarRoundedStackedConfig extends BaseChartConfig {
   Widget buildChart() => _BarRoundedWidget(config: this);
 
   factory BarRoundedStackedConfig.fromJson(Map<String, dynamic> j) {
-    final cats = (j['categories'] as List? ?? [])
-        .map((e) => e.toString())
-        .toList();
+    final cats = BarJson.stringList(
+      j['categories'] ?? j['labels'] ?? j['xLabels'],
+    );
     final s = _seriesFromJson(j['series']);
     return BarRoundedStackedConfig(
       categories: cats,
       series: s,
-      cornerRadius: _readDouble(j['cornerRadius'], 6.0),
-      showValues: j['showValues'] as bool? ?? false,
-      title: j['title'] != null ? TitlesData.fromJson(j['title']) : null,
-      tooltip: j['tooltip'] != null
-          ? ChartTooltip.fromJson(j['tooltip'])
-          : null,
-      legend: j['legend'] != null ? ChartLegend.fromJson(j['legend']) : null,
-      toolbox: j['toolbox'] != null
-          ? ChartToolbox.fromJson(j['toolbox'])
-          : null,
-      grid: j['grid'] != null ? GridData.fromJson(j['grid']) : null,
+      cornerRadius: BarJson.nonNegativeDouble(j['cornerRadius'], 6.0),
+      showValues: BarJson.boolOr(j['showValues'], false),
+      title: BarJson.title(j['title']),
+      tooltip: BarJson.tooltip(j['tooltip']),
+      legend: BarJson.legend(j['legend']),
+      toolbox: BarJson.toolbox(j['toolbox']),
+      grid: BarJson.grid(j['grid']),
     );
   }
   @override
@@ -2044,12 +2052,7 @@ class _BarRoundedPainter extends ChartPainterBase {
     // Total stacked max
     double maxTotal = 0;
     for (int ci = 0; ci < n; ci++) {
-      double total = 0;
-      for (final s in cfg.series) {
-        if (s.data != null && ci < s.data!.length) {
-          total += (s.data![ci] as num).toDouble();
-        }
-      }
+      final total = _positiveStackTotalAt(cfg.series, ci);
       if (total > maxTotal) maxTotal = total;
     }
     if (maxTotal == 0) return;
@@ -2080,17 +2083,18 @@ class _BarRoundedPainter extends ChartPainterBase {
       final barX = cx - barW / 2;
       double stackY = padT + plotH; // bottom
       final isHov = ci == hovIdx;
+      final topIndex = _lastPositiveSeriesIndexAt(cfg.series, ci);
 
       for (int si = 0; si < ns; si++) {
         final s = cfg.series[si];
-        if (s.data == null || ci >= s.data!.length) continue;
-        final val = (s.data![ci] as num).toDouble();
+        final val = _seriesValueAt(s, ci);
+        if (val == null || val <= 0) continue;
         final segH = (val / maxTotal) * plotH * progress;
         final color = theme
             .seriesColor(si, explicitColor: s.color)
             .withValues(alpha: isHov ? 0.9 : 1.0);
 
-        final isTop = si == ns - 1;
+        final isTop = si == topIndex;
         final rect = Rect.fromLTWH(barX, stackY - segH, barW, segH);
 
         if (isTop) {
@@ -2185,23 +2189,19 @@ class BarNormalizedConfig extends BaseChartConfig {
   Widget buildChart() => _BarNormalizedWidget(config: this);
 
   factory BarNormalizedConfig.fromJson(Map<String, dynamic> j) {
-    final cats = (j['categories'] as List? ?? [])
-        .map((e) => e.toString())
-        .toList();
+    final cats = BarJson.stringList(
+      j['categories'] ?? j['labels'] ?? j['xLabels'],
+    );
     final s = _seriesFromJson(j['series']);
     return BarNormalizedConfig(
       categories: cats,
       series: s,
-      showPercentLabels: j['showPercentLabels'] as bool? ?? true,
-      title: j['title'] != null ? TitlesData.fromJson(j['title']) : null,
-      tooltip: j['tooltip'] != null
-          ? ChartTooltip.fromJson(j['tooltip'])
-          : null,
-      legend: j['legend'] != null ? ChartLegend.fromJson(j['legend']) : null,
-      toolbox: j['toolbox'] != null
-          ? ChartToolbox.fromJson(j['toolbox'])
-          : null,
-      grid: j['grid'] != null ? GridData.fromJson(j['grid']) : null,
+      showPercentLabels: BarJson.boolOr(j['showPercentLabels'], true),
+      title: BarJson.title(j['title']),
+      tooltip: BarJson.tooltip(j['tooltip']),
+      legend: BarJson.legend(j['legend']),
+      toolbox: BarJson.toolbox(j['toolbox']),
+      grid: BarJson.grid(j['grid']),
     );
   }
   @override
@@ -2358,26 +2358,22 @@ class _BarNormPainter extends ChartPainterBase {
 
     for (int ci = 0; ci < n; ci++) {
       // Compute totals
-      double total = 0;
-      for (final s in cfg.series) {
-        if (s.data != null && ci < s.data!.length) {
-          total += (s.data![ci] as num).toDouble();
-        }
-      }
+      final total = _positiveStackTotalAt(cfg.series, ci);
       if (total == 0) continue;
 
       final cx = padL + (ci + 0.5) * slotW;
       final barX = cx - barW / 2;
       double stackY = padT + plotH;
+      final topIndex = _lastPositiveSeriesIndexAt(cfg.series, ci);
 
       for (int si = 0; si < ns; si++) {
         final s = cfg.series[si];
-        if (s.data == null || ci >= s.data!.length) continue;
-        final val = (s.data![ci] as num).toDouble();
+        final val = _seriesValueAt(s, ci);
+        if (val == null || val <= 0) continue;
         final pct = val / total;
         final segH = pct * plotH * progress;
         final color = theme.seriesColor(si, explicitColor: s.color);
-        final isTop = si == ns - 1;
+        final isTop = si == topIndex;
         final rect = Rect.fromLTWH(barX, stackY - segH, barW, segH);
         if (isTop) {
           _drawRoundedTopRect(
@@ -2469,23 +2465,17 @@ class NegativeBarConfig extends BaseChartConfig {
   Widget buildChart() => _NegativeBarWidget(config: this);
 
   factory NegativeBarConfig.fromJson(Map<String, dynamic> j) {
-    final cats = (j['categories'] as List? ?? [])
-        .map((e) => e.toString())
-        .toList();
-    final s = _seriesFromJson(j['series']);
     return NegativeBarConfig(
-      categories: cats,
-      series: s,
-      showValues: j['showValues'] as bool? ?? true,
-      title: j['title'] != null ? TitlesData.fromJson(j['title']) : null,
-      tooltip: j['tooltip'] != null
-          ? ChartTooltip.fromJson(j['tooltip'])
-          : null,
-      legend: j['legend'] != null ? ChartLegend.fromJson(j['legend']) : null,
-      toolbox: j['toolbox'] != null
-          ? ChartToolbox.fromJson(j['toolbox'])
-          : null,
-      grid: j['grid'] != null ? GridData.fromJson(j['grid']) : null,
+      categories: BarJson.stringList(
+        j['categories'] ?? j['labels'] ?? j['xLabels'],
+      ),
+      series: _seriesFromJson(j['series']),
+      showValues: BarJson.boolOr(j['showValues'], true),
+      title: BarJson.title(j['title']),
+      tooltip: BarJson.tooltip(j['tooltip']),
+      legend: BarJson.legend(j['legend']),
+      toolbox: BarJson.toolbox(j['toolbox']),
+      grid: BarJson.grid(j['grid']),
     );
   }
   @override
@@ -2595,7 +2585,8 @@ class _NegBarPainter extends ChartPainterBase {
     double minVal = 0, maxVal = 0;
     for (final s in cfg.series) {
       for (final v in s.data ?? []) {
-        final d = (v as num).toDouble();
+        final d = BarJson.doubleOrNull(v);
+        if (d == null) continue;
         if (d < minVal) {
           minVal = d;
         }
@@ -2660,8 +2651,8 @@ class _NegBarPainter extends ChartPainterBase {
 
       for (int si = 0; si < ns; si++) {
         final s = cfg.series[si];
-        if (s.data == null || ci >= s.data!.length) continue;
-        final val = (s.data![ci] as num).toDouble();
+        final val = _seriesValueAt(s, ci);
+        if (val == null) continue;
         final isNeg = val < 0;
         final color = isNeg
             ? const Color(0xFFEF5350)
@@ -2748,24 +2739,18 @@ class TangentialPolarBarConfig extends BaseChartConfig {
   Widget buildChart() => _TangentialPolarWidget(config: this);
 
   factory TangentialPolarBarConfig.fromJson(Map<String, dynamic> j) {
-    final cats = (j['categories'] as List? ?? [])
-        .map((e) => e.toString())
-        .toList();
-    final s = _seriesFromJson(j['series']);
     return TangentialPolarBarConfig(
-      categories: cats,
-      series: s,
-      showValues: j['showValues'] as bool? ?? true,
-      innerRadius: _readDouble(j['innerRadius'], 0.3),
-      title: j['title'] != null ? TitlesData.fromJson(j['title']) : null,
-      tooltip: j['tooltip'] != null
-          ? ChartTooltip.fromJson(j['tooltip'])
-          : null,
-      legend: j['legend'] != null ? ChartLegend.fromJson(j['legend']) : null,
-      toolbox: j['toolbox'] != null
-          ? ChartToolbox.fromJson(j['toolbox'])
-          : null,
-      grid: j['grid'] != null ? GridData.fromJson(j['grid']) : null,
+      categories: BarJson.stringList(
+        j['categories'] ?? j['labels'] ?? j['xLabels'],
+      ),
+      series: _seriesFromJson(j['series']),
+      showValues: BarJson.boolOr(j['showValues'], true),
+      innerRadius: _innerRadius(j['innerRadius']),
+      title: BarJson.title(j['title']),
+      tooltip: BarJson.tooltip(j['tooltip']),
+      legend: BarJson.legend(j['legend']),
+      toolbox: BarJson.toolbox(j['toolbox']),
+      grid: BarJson.grid(j['grid']),
     );
   }
   @override
@@ -2868,13 +2853,15 @@ class _TangPolPainter extends ChartPainterBase {
     if (n == 0 || cfg.series.isEmpty) return;
     final cx = size.width / 2, cy = size.height / 2;
     final outerR = math.min(cx, cy) * 0.78;
+    if (outerR <= 0) return;
     final innerR = outerR * cfg.innerRadius;
     const pad = 20.0;
 
     double maxVal = 0;
     for (final s in cfg.series) {
       for (final v in s.data ?? []) {
-        final d = (v as num).toDouble();
+        final d = BarJson.doubleOrNull(v);
+        if (d == null) continue;
         if (d > maxVal) {
           maxVal = d;
         }
@@ -2886,12 +2873,11 @@ class _TangPolPainter extends ChartPainterBase {
     final startOffset = -math.pi / 2;
 
     for (int i = 0; i < n; i++) {
-      final val =
-          cfg.series.first.data != null && i < cfg.series.first.data!.length
-          ? (cfg.series.first.data![i] as num).toDouble()
-          : 0.0;
+      final rawValue = _seriesValueAt(cfg.series.first, i);
+      final val = rawValue == null || rawValue < 0 ? 0.0 : rawValue;
       final color = theme.seriesColor(i, explicitColor: cfg.series.first.color);
-      final barR = innerR + ((outerR - innerR - pad) * val / maxVal * progress);
+      final availableR = math.max(0.0, outerR - innerR - pad);
+      final barR = innerR + (availableR * val / maxVal * progress);
       final startAngle = startOffset + i * sliceAngle + sliceAngle * 0.05;
       final sweepAngle = sliceAngle * 0.9;
 
@@ -2986,23 +2972,17 @@ class BarBrushConfig extends BaseChartConfig {
   Widget buildChart() => BarBrushWidget(config: this);
 
   factory BarBrushConfig.fromJson(Map<String, dynamic> j) {
-    final cats = (j['categories'] as List? ?? [])
-        .map((e) => e.toString())
-        .toList();
-    final s = _seriesFromJson(j['series']);
     return BarBrushConfig(
-      categories: cats,
-      series: s,
-      showValues: j['showValues'] as bool? ?? false,
-      title: j['title'] != null ? TitlesData.fromJson(j['title']) : null,
-      tooltip: j['tooltip'] != null
-          ? ChartTooltip.fromJson(j['tooltip'])
-          : null,
-      legend: j['legend'] != null ? ChartLegend.fromJson(j['legend']) : null,
-      toolbox: j['toolbox'] != null
-          ? ChartToolbox.fromJson(j['toolbox'])
-          : null,
-      grid: j['grid'] != null ? GridData.fromJson(j['grid']) : null,
+      categories: BarJson.stringList(
+        j['categories'] ?? j['labels'] ?? j['xLabels'],
+      ),
+      series: _seriesFromJson(j['series']),
+      showValues: BarJson.boolOr(j['showValues'], false),
+      title: BarJson.title(j['title']),
+      tooltip: BarJson.tooltip(j['tooltip']),
+      legend: BarJson.legend(j['legend']),
+      toolbox: BarJson.toolbox(j['toolbox']),
+      grid: BarJson.grid(j['grid']),
     );
   }
   @override
@@ -3059,8 +3039,10 @@ class _BarBrushState extends State<BarBrushWidget>
     super.dispose();
   }
 
-  int _xToIdx(double x, double plotL, double slotW) =>
-      ((x - plotL) / slotW).floor().clamp(0, cfg.categories.length - 1);
+  int _xToIdx(double x, double plotL, double slotW) {
+    if (cfg.categories.isEmpty) return 0;
+    return ((x - plotL) / slotW).floor().clamp(0, cfg.categories.length - 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -3081,7 +3063,7 @@ class _BarBrushState extends State<BarBrushWidget>
             builder: (ctx, con) {
               final sz = Size(con.maxWidth, con.maxHeight);
               const padL = 48.0;
-              final plotW = sz.width - padL - 12.0;
+              final plotW = math.max(1.0, sz.width - padL - 12.0);
               final n = cfg.categories.length;
               final slotW = n > 0 ? plotW / n : 1.0;
               return GestureDetector(
@@ -3197,7 +3179,8 @@ class _BarBrushPainter extends ChartPainterBase {
     double maxVal = 0;
     for (final s in cfg.series) {
       for (final v in s.data ?? []) {
-        final d = (v as num).toDouble();
+        final d = BarJson.doubleOrNull(v);
+        if (d == null) continue;
         if (d > maxVal) {
           maxVal = d;
         }
@@ -3239,10 +3222,8 @@ class _BarBrushPainter extends ChartPainterBase {
 
     final barW = slotW * 0.6;
     for (int ci = 0; ci < n; ci++) {
-      final val =
-          cfg.series.first.data != null && ci < cfg.series.first.data!.length
-          ? (cfg.series.first.data![ci] as num).toDouble()
-          : 0.0;
+      final rawValue = _seriesValueAt(cfg.series.first, ci);
+      final val = rawValue == null || rawValue < 0 ? 0.0 : rawValue;
       final cx = plotLeft + (ci + 0.5) * slotW;
       final barX = cx - barW / 2;
       final y = padT + plotH * (1 - val / maxVal * progress);

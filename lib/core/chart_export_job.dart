@@ -813,34 +813,14 @@ class ChartExportJobResult {
       addIssue(cancelReason);
     }
 
-    for (final result in exportBatch.failed) {
-      addIssue(
-        'Export failed for ${result.filename}: '
-        '${result.error ?? 'Unknown export error.'}',
-      );
-    }
-
-    for (final skipped in exportBatch.skippedUnavailable) {
-      addIssue(
-        '${skipped.format.name} export skipped: '
-        '${skipped.disabledReason ?? 'Format is unavailable.'}',
-      );
-    }
-
-    if (exportBatch.notRunCount > 0) {
-      addIssue(
-        '${exportBatch.notRunCount} '
-        '${_plural('export', exportBatch.notRunCount)} not run.',
-      );
+    for (final message in exportBatch.issueMessages) {
+      addIssue(message);
     }
 
     final delivery = exportDelivery;
     if (delivery != null) {
-      for (final result in delivery.failed) {
-        addIssue(
-          'Delivery failed for ${result.filename ?? 'export file'}: '
-          '${result.errorText ?? 'Unknown delivery error.'}',
-        );
+      for (final message in delivery.issueMessages) {
+        addIssue(message);
       }
     }
 

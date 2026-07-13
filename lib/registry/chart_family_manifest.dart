@@ -4,8 +4,10 @@ import '../core/chart_type.dart';
 import 'chart_registration_bundle.dart';
 import 'registry_tools.dart';
 
+/// Public API surfaces that can expose chart family metadata.
 enum ChartFamilyManifestSurface { config }
 
+/// Describes one chart family in the public Tenun package surface.
 class ChartFamilyManifestEntry {
   final ChartType type;
   final String typeString;
@@ -113,6 +115,7 @@ class ChartFamilyManifestEntry {
   };
 }
 
+/// Immutable catalog of chart families available from a registration bundle.
 class ChartFamilyManifest {
   final String name;
   final String description;
@@ -218,6 +221,7 @@ class ChartFamilyManifest {
   };
 }
 
+/// Factory helpers for building public chart family manifests.
 class ChartFamilyManifests {
   static const String publicExportPath = 'package:tenun/tenun.dart';
 
@@ -334,20 +338,8 @@ String _normalizeManifestKey(String value) {
 }
 
 final List<RegistrationBundle> _manifestBundles = [
-  cartesianChartsBundle,
-  pieChartsBundle,
-  radialChartsBundle,
-  hierarchicalChartsBundle,
-  flowChartsBundle,
-  financialChartsBundle,
-  matrixChartsBundle,
-  calendarChartsBundle,
-  geoChartsBundle,
-  graphChartsBundle,
-  commonChartsBundle,
-  businessChartsBundle,
-  aiMLChartsBundle,
   coreChartsBundle,
+  allChartsBundle,
 ];
 
 const Set<String> _upperCaseManifestWords = {'roc', 'kpi', 'ai', 'ml', 'ohlc'};

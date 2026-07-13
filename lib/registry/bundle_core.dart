@@ -34,7 +34,6 @@ final coreChartsBundle = RegistrationBundle(
 final coreBarRegistration = ChartRegistration(
   type: ChartType.bar,
   typeString: 'bar',
-  aliases: const ['groupedbar', 'horizontalbar', 'stackedhorizontalbar'],
   fromJson: BarChartConfig.fromJson,
   description: 'Bar chart family',
   tags: const ['core', 'cartesian', 'bar'],

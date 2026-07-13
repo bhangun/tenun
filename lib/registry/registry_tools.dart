@@ -959,15 +959,23 @@ List<ChartType> compatibleChartTypesForShape(
   if (shape == ChartSeriesDataShape.unknown) return const [];
 
   final out = <ChartType>[];
-  final candidates = registeredOnly
-      ? ChartRegistry.registeredEnums
-      : allChartsBundle.registrations.map((r) => r.type);
-
-  for (final type in candidates) {
+  for (final type in _candidateChartTypes(registeredOnly: registeredOnly)) {
     if (!chartTypeSupportsSeriesShape(type, shape)) continue;
     if (!out.contains(type)) out.add(type);
   }
   return out;
+}
+
+List<ChartType> _candidateChartTypes({required bool registeredOnly}) {
+  final rawTypes = registeredOnly
+      ? ChartRegistry.registeredEnums
+      : ChartType.values;
+  final candidates = <ChartType>[];
+  for (final rawType in rawTypes) {
+    final type = canonicalChartType(rawType);
+    if (!candidates.contains(type)) candidates.add(type);
+  }
+  return candidates;
 }
 
 /// Detect the dominant data shape from JSON chart config.
@@ -1023,7 +1031,9 @@ ChartSwitchCompatibility chartSwitchCompatibilityForJson(
     sourceShape,
     registeredOnly: registeredOnly,
   );
-  final isCompatible = targetRegistered && compatibleTypes.contains(targetType);
+  final canonicalTargetType = canonicalChartType(targetType);
+  final isCompatible =
+      targetRegistered && compatibleTypes.contains(canonicalTargetType);
   final forceConversionAvailable =
       targetRegistered &&
       !isCompatible &&

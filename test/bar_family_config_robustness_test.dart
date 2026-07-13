@@ -123,6 +123,69 @@ void main() {
       expect(rotated.showValues, isTrue);
     });
 
+    test(
+      'rounded and normalized stacked configs tolerate flexible payloads',
+      () {
+        final rounded = BarRoundedStackedConfig.fromJson({
+          'labels': ['Q1', 2, 'Q3'],
+          'cornerRadius': '-8',
+          'showValues': 'yes',
+          'series': _stackedPayload(),
+        });
+        expect(rounded.categories, ['Q1', '2', 'Q3']);
+        expect(rounded.cornerRadius, 0);
+        expect(rounded.showValues, isTrue);
+        expect(rounded.series, hasLength(2));
+
+        final normalized = BarNormalizedConfig.fromJson({
+          'xLabels': ['Q1', 2, 'Q3'],
+          'showPercentLabels': '0',
+          'series': _stackedPayload(),
+        });
+        expect(normalized.categories, ['Q1', '2', 'Q3']);
+        expect(normalized.showPercentLabels, isFalse);
+        expect(normalized.series, hasLength(2));
+      },
+    );
+
+    test('diverging, brush, and polar configs tolerate flexible payloads', () {
+      final diverging = NegativeBarConfig.fromJson({
+        'xLabels': ['Profit', 2, 'Costs'],
+        'showValues': 'false',
+        'series': [
+          {
+            'name': 'Delta',
+            'data': [
+              '120',
+              ['Revenue', '-80'],
+              {'value': '45'},
+            ],
+          },
+        ],
+      });
+      expect(diverging.categories, ['Profit', '2', 'Costs']);
+      expect(diverging.showValues, isFalse);
+      expect(diverging.series, hasLength(1));
+
+      final brush = BarBrushConfig.fromJson({
+        'labels': ['Jan', 2, 'Mar'],
+        'showValues': 'yes',
+        'series': _mixedPayload(),
+      });
+      expect(brush.categories, ['Jan', '2', 'Mar']);
+      expect(brush.showValues, isTrue);
+
+      final polar = TangentialPolarBarConfig.fromJson({
+        'xLabels': ['North', 2, 'South'],
+        'showValues': '0',
+        'innerRadius': '2',
+        'series': _mixedPayload(),
+      });
+      expect(polar.categories, ['North', '2', 'South']);
+      expect(polar.showValues, isFalse);
+      expect(polar.innerRadius, 0.85);
+    });
+
     testWidgets('background bar and race render mixed JSON values', (
       tester,
     ) async {
@@ -159,6 +222,37 @@ void main() {
               ],
             },
           ],
+        }).buildChart(),
+        BarRoundedStackedConfig.fromJson({
+          'categories': ['Q1', 'Q2', 'Q3'],
+          'showValues': 'true',
+          'series': _stackedPayload(),
+        }).buildChart(),
+        BarNormalizedConfig.fromJson({
+          'categories': ['Q1', 'Q2', 'Q3'],
+          'series': _stackedPayload(),
+        }).buildChart(),
+        NegativeBarConfig.fromJson({
+          'xLabels': ['Profit', 'Costs', 'Growth'],
+          'series': [
+            {
+              'name': 'Delta',
+              'data': [
+                '120',
+                ['Costs', '-80'],
+                {'value': '45'},
+              ],
+            },
+          ],
+        }).buildChart(),
+        TangentialPolarBarConfig.fromJson({
+          'labels': ['North', 'East', 'South'],
+          'innerRadius': '0.25',
+          'series': _mixedPayload(),
+        }).buildChart(),
+        BarBrushConfig.fromJson({
+          'categories': ['Jan', 'Feb', 'Mar'],
+          'series': _mixedPayload(),
         }).buildChart(),
         BarRaceChartConfig.fromJson({
           'autoPlay': 'false',
@@ -204,5 +298,39 @@ List<Series> _mixedSeries() {
         {'value': '150'},
       ],
     ),
+  ];
+}
+
+List<Map<String, Object?>> _mixedPayload() {
+  return [
+    {
+      'name': 'Actual',
+      'data': [
+        '120',
+        ['Q2', '200'],
+        {'value': '150'},
+      ],
+    },
+  ];
+}
+
+List<Map<String, Object?>> _stackedPayload() {
+  return [
+    {
+      'name': 'Base',
+      'data': [
+        '12',
+        ['Q2', '18'],
+        {'value': '14'},
+      ],
+    },
+    {
+      'name': 'Growth',
+      'data': [
+        '8',
+        ['Q2', '10'],
+        {'value': '9'},
+      ],
+    },
   ];
 }

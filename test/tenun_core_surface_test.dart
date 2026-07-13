@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tenun/tenun.dart' as tenun;
 import 'package:tenun/tenun_core.dart';
 
 void main() {
@@ -16,6 +17,24 @@ void main() {
     expect(coreTypes, isNot(contains(ChartType.candlestick)));
     expect(coreTypes, isNot(contains(ChartType.heatmap)));
     expect(coreTypes, isNot(contains(ChartType.treemap)));
+  });
+
+  test('basic tenun entrypoint exposes the core registration facade only', () {
+    final entrypointTypes = {
+      for (final registration in tenun.allChartsBundle.registrations)
+        tenun.canonicalChartType(registration.type),
+    };
+    final coreTypes = {
+      for (final registration in coreChartsBundle.registrations)
+        canonicalChartType(registration.type),
+    };
+
+    expect(entrypointTypes, coreTypes);
+    expect(entrypointTypes, contains(tenun.ChartType.bar));
+    expect(entrypointTypes, contains(tenun.ChartType.scatter));
+    expect(entrypointTypes, isNot(contains(tenun.ChartType.candlestick)));
+    expect(entrypointTypes, isNot(contains(tenun.ChartType.heatmap)));
+    expect(entrypointTypes, isNot(contains(tenun.ChartType.treemap)));
   });
 
   test('core bundle can bootstrap local JSON rendering types', () {

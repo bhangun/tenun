@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/tenun.dart';
+import 'package:tenun/core/chart_animation_system.dart';
 
 void main() {
   group('ChartAnimationController lifecycle', () {

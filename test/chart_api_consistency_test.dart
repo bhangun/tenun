@@ -87,8 +87,8 @@ void main() {
     expect(bar.typeString, 'bar');
     expect(bar.displayName, 'Bar');
     expect(bar.surface, ChartFamilyManifestSurface.config);
-    expect(bar.primaryBundleName, 'cartesian');
-    expect(bar.bundleNames, containsAll(['cartesian', 'core']));
+    expect(bar.primaryBundleName, 'core');
+    expect(bar.bundleNames, containsAll(['core', 'all_core']));
     expect(bar.dataShape, ChartSeriesDataShape.cartesian);
     expect(bar.seriesStrategy, ChartPayloadSeriesStrategy.dataFields);
     expect(bar.dataFieldPriority, contains('data'));
@@ -103,7 +103,10 @@ void main() {
       containsPair('publicExportPath', 'package:tenun/tenun.dart'),
     );
 
-    expect(manifest.entryForTypeString('stacked_horizontal_bar'), isNotNull);
+    expect(
+      manifest.entryForTypeString('stacked_horizontal_bar')?.type,
+      ChartType.stackedHorizontalBar,
+    );
     expect(
       manifest.forBundle('core').map((entry) => entry.type),
       contains(ChartType.bar),
@@ -114,8 +117,8 @@ void main() {
       contains(ChartType.line),
     );
     expect(
-      manifest.forTag('statistical').map((entry) => entry.type),
-      contains(ChartType.histogram),
+      manifest.forTag('core').map((entry) => entry.type),
+      contains(ChartType.bar),
     );
 
     final manifestJson = manifest.toJson();
@@ -151,24 +154,38 @@ void main() {
     expect(coverage.expectedCount, coreChartsBundle.registrations.length);
     expect(coverage.providedCount, 7);
     expect(coverage.coveredCount, 4);
-    expect(coverage.missingCount, 3);
-    expect(coverage.unknownExampleKeys, ['stacked_bar', 'unknown_chart']);
+    expect(coverage.missingCount, 8);
+    expect(coverage.unknownExampleKeys, ['bubble', 'unknown_chart']);
     expect(coverage.duplicateExampleKeys, ['bar']);
-    expect(coverage.coveredExampleKeys, ['bar', 'line', 'scatter', 'bubble']);
-    expect(coverage.missingExampleKeys, ['area', 'pie', 'donut']);
+    expect(coverage.coveredExampleKeys, [
+      'bar',
+      'stackedbar',
+      'line',
+      'scatter',
+    ]);
+    expect(coverage.missingExampleKeys, [
+      'groupedbar',
+      'horizontalbar',
+      'stackedhorizontalbar',
+      'linearea',
+      'area',
+      'stackedarea',
+      'pie',
+      'donut',
+    ]);
     expect(coverage.isComplete, isFalse);
     expect(coverage.hasUnknownExamples, isTrue);
     expect(coverage.hasDuplicateExamples, isTrue);
-    expect(coverage.coverageRatio, closeTo(4 / 7, 0.0001));
+    expect(coverage.coverageRatio, closeTo(4 / 12, 0.0001));
     expect(coverage.bundleCoverage['core'], {
-      'expected': 7,
+      'expected': 12,
       'covered': 4,
-      'missing': 3,
+      'missing': 8,
     });
     expect(coverage.dataShapeCoverage['cartesian'], {
-      'expected': 5,
+      'expected': 10,
       'covered': 4,
-      'missing': 1,
+      'missing': 6,
     });
     expect(coverage.dataShapeCoverage['pieLike'], {
       'expected': 2,
@@ -177,7 +194,16 @@ void main() {
     });
     expect(
       coverage.toJson(),
-      containsPair('missingExampleKeys', ['area', 'pie', 'donut']),
+      containsPair('missingExampleKeys', [
+        'groupedbar',
+        'horizontalbar',
+        'stackedhorizontalbar',
+        'linearea',
+        'area',
+        'stackedarea',
+        'pie',
+        'donut',
+      ]),
     );
 
     final completeCoverage = ChartFamilyShowcaseCoverages.forManifest(

@@ -35,8 +35,7 @@ consumed from `package:tenun_pro`.
 ```yaml
 # pubspec.yaml
 dependencies:
-  tenun: ^1.0.0
-  intl: ^0.19.0 # Required for locale-aware number/date formatting
+  tenun: ^0.1.0
 ```
 
 Run:
@@ -1281,7 +1280,7 @@ try {
 
 ## 📄 License
 
-Dual License. © 2026 Tenun Contributors.  
+Apache License. © 2026 Tenun Contributors.  
 For enterprise support, custom chart plugins, or SLA guarantees, contact the maintainers.
 
 ---

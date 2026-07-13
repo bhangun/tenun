@@ -1,93 +1,44 @@
-// Tree-shake friendly registration bundles.
+// Apache/free-tier registration bundle facade.
 //
-// Import only the bundle(s) you need in app startup and call `.register()`.
-//
-// Example:
-// ```dart
-// void main() {
-//   coreChartsBundle.register();
-//   advancedChartsBundle.register(); // optional
-//   runApp(const MyApp());
-// }
-// ```
-
-import 'bundle_calendar.dart';
-import 'bundle_cartesian.dart';
-import 'bundle_common.dart';
-import 'bundle_financial.dart';
-import 'bundle_flow.dart';
-import 'bundle_geo.dart';
-import 'bundle_graph.dart';
-import 'bundle_hierarchical.dart';
-import 'bundle_matrix.dart';
-import 'bundle_pie.dart';
-import 'bundle_radial.dart';
-import 'bundle_business.dart';
-import 'bundle_ai_ml.dart';
+// Pro chart registrations are owned by `package:tenun_pro`. This file keeps
+// the historical `allChartsBundle` and common registration names available for
+// basic/core consumers, but maps them only to the Apache core chart family.
 
 import '../core/chart_registry.dart';
 import '../core/chart_type.dart';
+import 'bundle_core.dart' as core;
+import 'chart_type_groups.dart';
 import 'registry_tools.dart';
 
-export 'bundle_calendar.dart';
-export 'bundle_cartesian.dart';
-export 'bundle_common.dart';
-export 'bundle_financial.dart';
-export 'bundle_flow.dart';
-export 'bundle_geo.dart';
-export 'bundle_graph.dart';
-export 'bundle_hierarchical.dart';
-export 'bundle_matrix.dart';
-export 'bundle_pie.dart';
-export 'bundle_radial.dart';
-export 'bundle_business.dart';
-export 'bundle_ai_ml.dart';
+export 'bundle_core.dart';
+export 'chart_type_groups.dart';
 
-// ---------------------------------------------------------------------------
-// Convenience Bundles
-// ---------------------------------------------------------------------------
+/// Basic/core bar chart registration.
+final barRegistration = core.coreBarRegistration;
 
-/// Standard bundle containing common chart types.
-final coreChartsBundle = RegistrationBundle(
-  name: 'core',
-  description:
-      'Common chart types: Bar, Line, Area, Pie, Donut, Scatter, Bubble',
-  registrations: [
-    barRegistration,
-    lineRegistration,
-    areaRegistration,
-    pieRegistration,
-    donutRegistration,
-    scatterRegistration,
-    bubbleRegistration,
-  ],
-);
+/// Basic/core line chart registration.
+final lineRegistration = core.coreLineRegistration;
 
-/// Bundle containing all available chart types.
+/// Basic/core area chart registration.
+final areaRegistration = core.coreAreaRegistration;
+
+/// Basic/core pie chart registration.
+final pieRegistration = core.corePieRegistration;
+
+/// Basic/core donut chart registration.
+final donutRegistration = core.coreDonutRegistration;
+
+/// Basic/core scatter chart registration.
+final scatterRegistration = core.coreScatterRegistration;
+
+/// All chart registrations available from the Apache/free-tier package.
 final allChartsBundle = RegistrationBundle(
-  name: 'all',
-  description: 'All registered chart types',
-  registrations: [
-    ...cartesianChartsBundle.registrations,
-    ...pieChartsBundle.registrations,
-    ...radialChartsBundle.registrations,
-    ...hierarchicalChartsBundle.registrations,
-    ...flowChartsBundle.registrations,
-    ...financialChartsBundle.registrations,
-    ...matrixChartsBundle.registrations,
-    ...calendarChartsBundle.registrations,
-    ...geoChartsBundle.registrations,
-    ...graphChartsBundle.registrations,
-    ...commonChartsBundle.registrations,
-    ...businessChartsBundle.registrations,
-    ...aiMLChartsBundle.registrations,
-  ],
+  name: 'all_core',
+  description: 'All Apache/free-tier chart types',
+  registrations: core.coreChartsBundle.registrations,
 );
 
-// ---------------------------------------------------------------------------
-// Shape-based bundling (internal)
-// ---------------------------------------------------------------------------
-
+/// Shape-based bundling for Apache/free-tier chart registrations.
 Map<ChartSeriesDataShape, RegistrationBundle> buildShapeBundles() {
   RegistrationBundle make(
     ChartSeriesDataShape shape,
@@ -96,8 +47,9 @@ Map<ChartSeriesDataShape, RegistrationBundle> buildShapeBundles() {
     Set<ChartType> allowed,
   ) {
     final regs = allChartsBundle.registrations
-        .where((r) => allowed.contains(r.type))
-        .toList();
+        .where((registration) => allowed.contains(registration.type))
+        .toList(growable: false);
+
     return RegistrationBundle(
       name: name,
       description: '$description (${shape.name})',
@@ -109,61 +61,61 @@ Map<ChartSeriesDataShape, RegistrationBundle> buildShapeBundles() {
     ChartSeriesDataShape.cartesian: make(
       ChartSeriesDataShape.cartesian,
       'shape_cartesian',
-      'Charts for category/time/value series',
+      'Core charts for category/time/value series',
       cartesianTypes,
     ),
     ChartSeriesDataShape.pieLike: make(
       ChartSeriesDataShape.pieLike,
       'shape_pie',
-      'Charts for label/value slices',
+      'Core charts for label/value slices',
       pieLikeTypes,
     ),
     ChartSeriesDataShape.hierarchical: make(
       ChartSeriesDataShape.hierarchical,
       'shape_hierarchical',
-      'Charts for tree/hierarchy data',
+      'Pro charts for tree/hierarchy data',
       hierarchicalTypes,
     ),
     ChartSeriesDataShape.matrix: make(
       ChartSeriesDataShape.matrix,
       'shape_matrix',
-      'Charts for matrix/grid value data',
+      'Pro charts for matrix/grid value data',
       matrixTypes,
     ),
     ChartSeriesDataShape.graph: make(
       ChartSeriesDataShape.graph,
       'shape_graph',
-      'Charts for node-link graph data',
+      'Pro charts for node-link graph data',
       graphTypes,
     ),
     ChartSeriesDataShape.flow: make(
       ChartSeriesDataShape.flow,
       'shape_flow',
-      'Charts for flow/process data',
+      'Pro charts for flow/process data',
       flowTypes,
     ),
     ChartSeriesDataShape.financial: make(
       ChartSeriesDataShape.financial,
       'shape_financial',
-      'Charts for OHLC/trading data',
+      'Pro charts for OHLC/trading data',
       financialTypes,
     ),
     ChartSeriesDataShape.radial: make(
       ChartSeriesDataShape.radial,
       'shape_radial',
-      'Charts for radial/polar metrics',
+      'Pro charts for radial/polar metrics',
       radialTypes,
     ),
     ChartSeriesDataShape.calendar: make(
       ChartSeriesDataShape.calendar,
       'shape_calendar',
-      'Charts for date-bucketed activity',
+      'Pro charts for date-bucketed activity',
       calendarTypes,
     ),
     ChartSeriesDataShape.geospatial: make(
       ChartSeriesDataShape.geospatial,
       'shape_geo',
-      'Charts for region/value map data',
+      'Pro charts for region/value map data',
       geoTypes,
     ),
   };

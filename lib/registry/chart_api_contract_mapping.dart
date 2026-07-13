@@ -1,15 +1,6 @@
 import '../core/chart_api_contract.dart';
 import '../core/chart_type.dart';
-import 'bundle_calendar.dart';
-import 'bundle_cartesian.dart';
-import 'bundle_financial.dart';
-import 'bundle_flow.dart';
-import 'bundle_geo.dart';
-import 'bundle_graph.dart';
-import 'bundle_hierarchical.dart';
-import 'bundle_matrix.dart';
-import 'bundle_pie.dart';
-import 'bundle_radial.dart';
+import 'chart_type_groups.dart';
 
 const Set<ChartType> _statisticalApiContractTypes = {
   ChartType.boxPlot,

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/tenun.dart';
+import 'package:tenun/charts/slope/slope_dumbbell_areabump_charts.dart';
 
 void main() {
   group('Chart type switching by series shape', () {
@@ -565,6 +566,45 @@ void main() {
         DataShapeAdapter.compatibility(source, ChartType.line).canSwitch,
         isTrue,
       );
+    });
+
+    test('same-shape preview switching works for known unregistered types', () {
+      final source = <String, dynamic>{
+        'type': 'bar',
+        'xAxis': {
+          'data': ['A', 'B', 'C'],
+        },
+        'series': [
+          {
+            'name': 'Sales',
+            'data': [10, 20, 30],
+          },
+        ],
+      };
+
+      final compatibility = chartSwitchCompatibilityForJson(
+        source,
+        targetType: ChartType.bubble,
+        registeredOnly: false,
+      );
+
+      expect(compatibility.isCompatible, isTrue);
+      expect(compatibility.requiresForce, isFalse);
+
+      final switched = switchChartTypeForSeriesShape(
+        source,
+        targetType: ChartType.bubble,
+      );
+      expect(switched['type'], 'bubble');
+
+      final options = chartSwitchOptionsForJson(
+        source,
+        preferredOrder: const [ChartType.bubble],
+        registeredOnly: false,
+      );
+
+      expect(options.first.type, ChartType.bubble);
+      expect(options.first.previewPayload['type'], 'bubble');
     });
 
     test('checks supported force conversion before switching', () {
