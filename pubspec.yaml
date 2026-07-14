@@ -1,6 +1,6 @@
 name: tenun
 description: "Tenun is a production-ready Flutter Charting library with JSON configuration, zoom/pan/fling state machines, drill-down hierarchies, cross-chart synchronization, and zero-allocation rendering pipelines. Designed for dashboards, financial apps, and data-heavy enterprise UIs."
-version: 0.1.0
+version: 0.1.1
 homepage:
 publish_to: none
 
