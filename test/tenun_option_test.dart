@@ -195,7 +195,7 @@ void main() {
         buildWhenInvalid: true,
       );
 
-      expect(result.validation.isValid, isTrue);
+      expect(result.validation.isValid, isFalse);
       expect(result.buildAttempted, isTrue);
       expect(result.success, isFalse);
       expect(result.resolved, isFalse);
