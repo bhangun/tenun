@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/tenun.dart';
+import 'package:tenun/registry/bundle_cartesian.dart' hide lineRegistration, areaRegistration, barRegistration, scatterRegistration;
+import 'package:tenun/registry/bundle_financial.dart';
+import 'package:tenun/registry/bundle_flow.dart';
+import 'package:tenun/registry/bundle_geo.dart';
+import 'package:tenun/registry/bundle_radial.dart';
+import 'package:tenun/registry/bundle_hierarchical.dart';
+import 'package:tenun/registry/bundle_matrix.dart';
+import 'package:tenun/registry/bundle_pie.dart';
+import 'package:tenun/registry/bundle_calendar.dart';
+import 'package:tenun/registry/bundle_graph.dart';
+import 'package:tenun/registry/bundle_common.dart';
 
 const _canvasWidth = 480.0;
 const _canvasHeight = 320.0;
@@ -13,7 +24,20 @@ void main() {
         tester,
       ) async {
         await ChartRegistry.withRegistrationsAsync(
-          allChartsBundle.registrations,
+          [
+            ...allChartsBundle.registrations,
+            ...cartesianChartsBundle.registrations,
+            ...financialChartsBundle.registrations,
+            ...flowChartsBundle.registrations,
+            ...geoChartsBundle.registrations,
+            ...radialChartsBundle.registrations,
+            ...commonChartsBundle.registrations,
+            ...hierarchicalChartsBundle.registrations,
+            ...matrixChartsBundle.registrations,
+            ...pieChartsBundle.registrations,
+            ...calendarChartsBundle.registrations,
+            ...graphChartsBundle.registrations,
+          ],
           clearBefore: true,
           () async {
             final validation = ChartConfigValidator.validateJsonPayload(

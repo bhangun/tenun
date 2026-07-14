@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../core/chart_data_value_reader.dart';
-import '../../core/utils/helper.dart';
+import 'package:tenun_core/core/chart_data_value_reader.dart';
+import 'package:tenun_core/core/utils/helper.dart';
 import 'grid_painter.dart';
 import 'scatter_chart_painter.dart';
 import 'scatter_config.dart';

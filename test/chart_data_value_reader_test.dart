@@ -4,13 +4,13 @@ import 'package:tenun/charts/bar/bar_chart.dart';
 import 'package:tenun/charts/bar/bar_config.dart';
 import 'package:tenun/charts/scatter/scatter_chart.dart';
 import 'package:tenun/charts/scatter/scatter_config.dart';
-import 'package:tenun/core/chart_data_processor.dart';
-import 'package:tenun/core/chart_data_value_reader.dart';
-import 'package:tenun/core/chart_type.dart';
-import 'package:tenun/core/data_sampler.dart';
-import 'package:tenun/core/legend.dart';
-import 'package:tenun/core/series.dart';
-import 'package:tenun/core/xyaxis.dart';
+import 'package:tenun_core/core/chart_data_processor.dart';
+import 'package:tenun_core/core/chart_data_value_reader.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/data_sampler.dart';
+import 'package:tenun_core/core/legend.dart';
+import 'package:tenun_core/core/series.dart';
+import 'package:tenun_core/core/xyaxis.dart';
 
 void main() {
   group('ChartDataValueReader', () {

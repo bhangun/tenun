@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/data_sampler.dart';
+import 'package:tenun_core/core/data_sampler.dart';
 
 void main() {
   group('Data sampler edge thresholds', () {

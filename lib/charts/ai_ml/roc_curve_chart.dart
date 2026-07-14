@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/chart_animation_system.dart';
-import '../../core/chart_data_processor.dart';
-import '../../core/chart_data_value_reader.dart';
-import '../../core/chart_painter_base.dart';
+import 'package:tenun_core/core/chart_animation_system.dart';
+import 'package:tenun_core/core/chart_data_processor.dart';
+import 'package:tenun_core/core/chart_data_value_reader.dart';
+import 'package:tenun_core/core/chart_painter_base.dart';
 import 'roc_curve_config.dart';
 
 class ROCCurveChartWidget extends StatefulWidget {

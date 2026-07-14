@@ -20,14 +20,14 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-import '../../core/chart_cache.dart';
-import '../../core/chart_data_signature.dart';
-import '../../core/chart_data_processor.dart';
-import '../../core/chart_painter_base.dart';
-import '../../core/chart_theme.dart';
-import '../../core/base_config.dart';
-import '../../core/chart_type.dart';
-import '../../core/series.dart';
+import 'package:tenun_core/core/chart_cache.dart';
+import 'package:tenun_core/core/chart_data_signature.dart';
+import 'package:tenun_core/core/chart_data_processor.dart';
+import 'package:tenun_core/core/chart_painter_base.dart';
+import 'package:tenun_core/core/chart_theme.dart';
+import 'package:tenun_core/core/base_config.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/series.dart';
 import 'bar_json_helpers.dart';
 
 // ═══════════════════════════════════════════════════════════════════════════

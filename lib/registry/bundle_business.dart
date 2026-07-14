@@ -1,5 +1,5 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 import '../charts/s_curve/s_curve_config.dart';
 import '../charts/pareto/pareto_config.dart';
 import '../charts/indicator/indicator_chart.dart';

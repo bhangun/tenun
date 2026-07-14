@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/tenun_core.dart';
+import 'package:tenun/charts/bar/simple_bar_chart.dart';
+import 'package:tenun/charts/pie/pie_config.dart';
+import 'package:tenun/charts/pie/simple_donut_chart.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 void main() {
   const data = [

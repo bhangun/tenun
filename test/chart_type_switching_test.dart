@@ -1,4 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tenun/registry/bundle_calendar.dart';
+import 'package:tenun/registry/bundle_cartesian.dart';
+import 'package:tenun/registry/bundle_common.dart';
+import 'package:tenun/registry/bundle_financial.dart';
+import 'package:tenun/registry/bundle_flow.dart';
+import 'package:tenun/registry/bundle_geo.dart';
+import 'package:tenun/registry/bundle_graph.dart';
+import 'package:tenun/registry/bundle_hierarchical.dart';
+import 'package:tenun/registry/bundle_matrix.dart';
+import 'package:tenun/registry/bundle_pie.dart';
+import 'package:tenun/registry/bundle_radial.dart';
 import 'package:tenun/tenun.dart';
 import 'package:tenun/charts/slope/slope_dumbbell_areabump_charts.dart';
 
@@ -7,6 +18,17 @@ void main() {
     setUp(() {
       ChartRegistry.clear();
       allChartsBundle.register();
+      cartesianChartsBundle.register();
+      financialChartsBundle.register();
+      flowChartsBundle.register();
+      geoChartsBundle.register();
+      radialChartsBundle.register();
+      commonChartsBundle.register();
+      calendarChartsBundle.register();
+      graphChartsBundle.register();
+      hierarchicalChartsBundle.register();
+      matrixChartsBundle.register();
+      pieChartsBundle.register();
     });
 
     test('suggests cartesian-compatible types for bar data', () {
@@ -111,6 +133,13 @@ void main() {
 
     test('classifies specialized registered chart shapes explicitly', () {
       final report = chartRegistryHealthReport(
+        bundle: RegistrationBundle(
+          name: 'test_all',
+          description: 'All registered charts in test',
+          registrations: ChartRegistry.registeredEnums
+              .map((e) => ChartRegistry.registrationForType(e)!)
+              .toList(growable: false),
+        ),
         includeUnknownShapeWarnings: true,
       );
 

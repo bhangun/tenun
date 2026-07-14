@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/chart_animation_system.dart';
-import '../../core/chart_controller.dart';
-import '../../core/series.dart';
-import '../../core/utils/helper.dart';
+import 'package:tenun_core/core/chart_animation_system.dart';
+import 'package:tenun_core/core/chart_controller.dart';
+import 'package:tenun_core/core/series.dart';
+import 'package:tenun_core/core/utils/helper.dart';
 import 'area_chart_config.dart';
 
 const double _chartLeftPadding = 48;

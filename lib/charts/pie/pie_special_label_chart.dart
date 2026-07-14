@@ -1,13 +1,13 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-import '../../core/base_config.dart';
-import '../../core/chart_data_signature.dart';
-import '../../core/chart_type.dart';
-import '../../core/chart_theme.dart';
-import '../../core/chart_painter_base.dart';
-import '../../core/chart_cache.dart';
-import '../../core/chart_render_pipeline.dart';
+import 'package:tenun_core/core/base_config.dart';
+import 'package:tenun_core/core/chart_data_signature.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/chart_theme.dart';
+import 'package:tenun_core/core/chart_painter_base.dart';
+import 'package:tenun_core/core/chart_cache.dart';
+import 'package:tenun_core/core/chart_render_pipeline.dart';
 import 'pie_json_helpers.dart';
 
 // ═══════════════════════════════════════════════════════════════════════════

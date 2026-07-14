@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../core/base_config.dart';
-import '../../core/chart_type.dart';
-import '../../core/chart_theme.dart';
-import '../../core/title.dart';
-import '../../core/tooltip.dart';
-import '../../core/legend.dart';
-import '../../core/grid.dart';
-import '../../core/chart_model.dart';
-import '../../core/chart_painter_base.dart';
-import '../../core/chart_data_signature.dart';
-import '../../core/chart_data_value_reader.dart';
-import '../../core/chart_cache.dart';
-import '../../core/json_value.dart';
+import 'package:tenun_core/core/base_config.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/chart_theme.dart';
+import 'package:tenun_core/core/title.dart';
+import 'package:tenun_core/core/tooltip.dart';
+import 'package:tenun_core/core/legend.dart';
+import 'package:tenun_core/core/grid.dart';
+import 'package:tenun_core/core/chart_model.dart';
+import 'package:tenun_core/core/chart_painter_base.dart';
+import 'package:tenun_core/core/chart_data_signature.dart';
+import 'package:tenun_core/core/chart_data_value_reader.dart';
+import 'package:tenun_core/core/chart_cache.dart';
+import 'package:tenun_core/core/json_value.dart';
 
 String _colorToHex(Color color) =>
     '#${color.toARGB32().toRadixString(16).padLeft(8, '0')}';

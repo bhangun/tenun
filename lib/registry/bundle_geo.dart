@@ -1,12 +1,10 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 // Chart config imports
 import '../charts/choroplet/choropleth_chart.dart' as v3choro;
 
-const Set<ChartType> geoTypes = {
-  ChartType.choropleth,
-};
+const Set<ChartType> geoTypes = {ChartType.choropleth};
 
 final choroplethRegistration = ChartRegistration(
   type: ChartType.choropleth,
@@ -20,7 +18,5 @@ final choroplethRegistration = ChartRegistration(
 final geoChartsBundle = RegistrationBundle(
   name: 'geo',
   description: 'Choropleth Map',
-  registrations: [
-    choroplethRegistration,
-  ],
+  registrations: [choroplethRegistration],
 );

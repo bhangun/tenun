@@ -1,12 +1,12 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/tenun_core.dart';
 
-// Chart config imports
-import '../charts/pie/pie_config.dart';
-import '../charts/pie/pie_chart_variants.dart';
 import '../charts/pie/customized_pie_chart.dart';
+import '../charts/pie/pie_chart_variants.dart';
+import '../charts/pie/pie_config.dart';
 import '../charts/pie/pie_label_align_chart.dart';
 import '../charts/pie/pie_special_label_chart.dart';
+
+// Chart config imports
 
 const Set<ChartType> pieLikeTypes = {
   ChartType.pie,

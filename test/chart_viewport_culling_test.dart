@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/chart_viewport_culling.dart';
+import 'package:tenun_core/core/chart_viewport_culling.dart';
 
 void main() {
   group('AdaptiveCullingConfig', () {

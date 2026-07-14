@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/chart_type.dart';
-import 'package:tenun/core/series.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/series.dart';
 
 void main() {
   group('chart type normalization', () {

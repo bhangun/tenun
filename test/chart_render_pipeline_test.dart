@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/tenun.dart';
+import 'package:tenun_core/tenun_core.dart';
 
 void main() {
   group('ChartRenderPipeline diagnostics', () {

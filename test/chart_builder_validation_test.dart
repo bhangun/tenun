@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:tenun/core/base_config.dart';
-import 'package:tenun/core/chart_builder.dart';
-import 'package:tenun/core/chart_config_validator.dart';
-import 'package:tenun/core/chart_data_processor.dart';
-import 'package:tenun/core/chart_registry.dart';
-import 'package:tenun/core/chart_runtime_diagnostics.dart';
-import 'package:tenun/core/chart_runtime_policy_fields.dart';
-import 'package:tenun/core/chart_type.dart';
-import 'package:tenun/core/data_sampler.dart';
-import 'package:tenun/core/series.dart';
-import 'package:tenun/registry/chart_registration_bundle.dart';
-import 'package:tenun/widget/chart_diagnostic_fallback.dart';
+import 'package:tenun/registry/bundle_calendar.dart';
+import 'package:tenun/registry/bundle_cartesian.dart';
+import 'package:tenun/registry/bundle_common.dart';
+import 'package:tenun/registry/bundle_financial.dart';
+import 'package:tenun/registry/bundle_flow.dart';
+import 'package:tenun/registry/bundle_geo.dart';
+import 'package:tenun/registry/bundle_graph.dart';
+import 'package:tenun/registry/bundle_hierarchical.dart';
+import 'package:tenun/registry/bundle_matrix.dart';
+import 'package:tenun/registry/bundle_pie.dart';
+import 'package:tenun/registry/bundle_radial.dart';
+import 'package:tenun/tenun.dart';
 
 class _FakeLineConfig extends BaseChartConfig {
   _FakeLineConfig({required super.series}) : super(type: ChartType.line);
@@ -766,6 +766,17 @@ void main() {
     setUp(() {
       ChartRegistry.clear();
       allChartsBundle.register();
+      cartesianChartsBundle.register();
+      financialChartsBundle.register();
+      flowChartsBundle.register();
+      geoChartsBundle.register();
+      radialChartsBundle.register();
+      commonChartsBundle.register();
+      calendarChartsBundle.register();
+      graphChartsBundle.register();
+      hierarchicalChartsBundle.register();
+      matrixChartsBundle.register();
+      pieChartsBundle.register();
     });
 
     testWidgets('sanitizes trading payload before strict render validation', (

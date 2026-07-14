@@ -1,12 +1,10 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 // Chart config imports
 import '../charts/network/network_radial_timeline_wordcloud_charts.dart';
 
-const Set<ChartType> graphTypes = {
-  ChartType.network,
-};
+const Set<ChartType> graphTypes = {ChartType.network};
 
 final networkRegistration = ChartRegistration(
   type: ChartType.network,
@@ -19,7 +17,5 @@ final networkRegistration = ChartRegistration(
 final graphChartsBundle = RegistrationBundle(
   name: 'graph',
   description: 'Network Graph',
-  registrations: [
-    networkRegistration,
-  ],
+  registrations: [networkRegistration],
 );

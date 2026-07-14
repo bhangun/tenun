@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/chart_interaction_layer.dart';
-import 'package:tenun/core/zoom/chart_zoom_state.dart';
+import 'package:tenun_core/core/chart_interaction_layer.dart';
+import 'package:tenun_core/core/zoom/chart_zoom_state.dart';
 
 void main() {
   group('ChartInteractionLayer', () {

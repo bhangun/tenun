@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/render_layer.dart' as legacy;
+import 'package:tenun_core/core/render_layer.dart' as legacy;
 
 void main() {
   group('legacy ChartRenderPipeline', () {

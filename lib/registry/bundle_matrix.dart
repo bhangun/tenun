@@ -1,5 +1,5 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 // Chart config imports
 import '../charts/heatmap/heatmap_calendar_parallel_charts.dart';

@@ -1,18 +1,34 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/chart_config_validator.dart';
-import 'package:tenun/core/chart_payload_doctor.dart';
-import 'package:tenun/core/base_config.dart';
-import 'package:tenun/core/chart_registry.dart';
-import 'package:tenun/core/chart_type.dart';
-import 'package:tenun/registry/chart_registration_bundle.dart';
-import 'package:tenun/registry/registry_tools.dart';
+import 'package:tenun/tenun.dart';
+import 'package:tenun/registry/bundle_cartesian.dart' hide lineRegistration, areaRegistration, barRegistration, scatterRegistration;
+import 'package:tenun/registry/bundle_financial.dart';
+import 'package:tenun/registry/bundle_flow.dart';
+import 'package:tenun/registry/bundle_geo.dart';
+import 'package:tenun/registry/bundle_radial.dart';
+import 'package:tenun/registry/bundle_hierarchical.dart';
+import 'package:tenun/registry/bundle_matrix.dart';
+import 'package:tenun/registry/bundle_pie.dart';
+import 'package:tenun/registry/bundle_calendar.dart';
+import 'package:tenun/registry/bundle_graph.dart';
+import 'package:tenun/registry/bundle_common.dart';
 
 void main() {
   setUp(() {
     ChartRegistry.clear();
     allChartsBundle.register();
+    cartesianChartsBundle.register();
+    financialChartsBundle.register();
+    flowChartsBundle.register();
+    geoChartsBundle.register();
+    radialChartsBundle.register();
+    commonChartsBundle.register();
+    hierarchicalChartsBundle.register();
+    matrixChartsBundle.register();
+    pieChartsBundle.register();
+    calendarChartsBundle.register();
+    graphChartsBundle.register();
   });
 
   group('JSON payload validator', () {

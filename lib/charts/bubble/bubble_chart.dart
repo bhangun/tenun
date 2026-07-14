@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/chart_cache.dart';
-import '../../core/chart_data_processor.dart';
-import '../../core/chart_painter_base.dart';
-import '../../core/chart_theme.dart';
+import 'package:tenun_core/core/chart_cache.dart';
+import 'package:tenun_core/core/chart_data_processor.dart';
+import 'package:tenun_core/core/chart_painter_base.dart';
+import 'package:tenun_core/core/chart_theme.dart';
 import 'bubble_config.dart';
 
 // ---------------------------------------------------------------------------

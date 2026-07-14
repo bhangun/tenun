@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../core/chart_api_options.dart';
-import '../../core/chart_api_surface.dart';
+import 'package:tenun_core/core/chart_api_options.dart';
+import 'package:tenun_core/core/chart_api_surface.dart';
 import '../common/simple_chart_reference_line.dart';
 import 'simple_line_chart.dart';
 

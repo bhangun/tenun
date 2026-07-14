@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/chart_data_value_reader.dart';
-import '../../core/utils/helper.dart';
+import 'package:tenun_core/core/chart_data_value_reader.dart';
+import 'package:tenun_core/core/utils/helper.dart';
 import 'bar_config.dart';
 
 class StackedBarChartWidget extends StatefulWidget {

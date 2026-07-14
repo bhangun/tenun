@@ -1,9 +1,9 @@
-import '../../core/chart_model.dart';
-import '../../core/grid.dart';
-import '../../core/json_value.dart';
-import '../../core/legend.dart';
-import '../../core/title.dart';
-import '../../core/tooltip.dart';
+import 'package:tenun_core/core/chart_model.dart';
+import 'package:tenun_core/core/grid.dart';
+import 'package:tenun_core/core/json_value.dart';
+import 'package:tenun_core/core/legend.dart';
+import 'package:tenun_core/core/title.dart';
+import 'package:tenun_core/core/tooltip.dart';
 
 /// Shared defensive JSON helpers for pie-style chart configurations.
 ///

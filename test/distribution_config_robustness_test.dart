@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/tenun.dart';
+import 'package:tenun/charts/box_plot/box_plot_chart.dart';
+import 'package:tenun/charts/histogram/histogram_chart.dart';
+import 'package:tenun/charts/rigeline/ridgeline_strip_error_bar_charts.dart';
+import 'package:tenun/charts/violin/violin_chart.dart';
 
 void main() {
   group('Distribution config robustness', () {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/charts/bar/bar_chart_variants.dart';
-import 'package:tenun/registry/bundle_cartesian.dart';
-import 'package:tenun/registry/bundle_radial.dart';
 import 'package:tenun/tenun.dart';
 
 void main() {
@@ -33,12 +31,7 @@ void main() {
         body: SizedBox(
           width: 520,
           height: 340,
-          child: TenunChartFromJson(
-            jsonConfig: payload,
-            onRenderError: (error, stackTrace) {
-              print('Render error for ${payload['type']}: $error');
-            },
-          ),
+          child: TenunChart(jsonConfig: payload),
         ),
       ),
     );
@@ -86,8 +79,6 @@ void main() {
     final snapshot = ChartRegistry.snapshot();
     ChartRegistry.clear();
     allChartsBundle.register();
-    cartesianChartsBundle.register();
-    radialChartsBundle.register();
     addTearDown(() => ChartRegistry.restore(snapshot));
 
     await tester.pumpWidget(
@@ -191,8 +182,6 @@ void main() {
       final snapshot = ChartRegistry.snapshot();
       ChartRegistry.clear();
       allChartsBundle.register();
-      cartesianChartsBundle.register();
-      radialChartsBundle.register();
       addTearDown(() => ChartRegistry.restore(snapshot));
 
       final payloads = <MapEntry<String, Map<String, dynamic>>>[

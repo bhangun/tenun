@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tenun/tenun_core.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/widget/tenun_widget.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});

@@ -3,8 +3,8 @@ import '../charts/bar/bar_config.dart';
 import '../charts/line/line_config.dart';
 import '../charts/pie/pie_config.dart';
 import '../charts/scatter/scatter_config.dart';
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 /// Apache/free-tier chart registrations.
 ///

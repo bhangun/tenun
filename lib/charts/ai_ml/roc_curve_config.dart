@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../core/chart_controller.dart';
-import '../../core/chart_color_value.dart';
-import '../../core/chart_theme.dart';
-import '../../core/chart_type.dart';
-import '../../core/json_value.dart';
-import '../../core/series.dart';
-import '../../core/title.dart';
-import '../../core/xyaxis.dart';
-import '../../core/base_config.dart';
+import 'package:tenun_core/core/chart_controller.dart';
+import 'package:tenun_core/core/chart_color_value.dart';
+import 'package:tenun_core/core/chart_theme.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/json_value.dart';
+import 'package:tenun_core/core/series.dart';
+import 'package:tenun_core/core/title.dart';
+import 'package:tenun_core/core/xyaxis.dart';
+import 'package:tenun_core/core/base_config.dart';
 import 'roc_curve_chart.dart';
 
 /// Configuration for ROC (Receiver Operating Characteristic) curves.

@@ -4,14 +4,20 @@
 // the historical `allChartsBundle` and common registration names available for
 // basic/core consumers, but maps them only to the Apache core chart family.
 
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/registry/registry_tools_core.dart';
+import 'bundle_calendar.dart';
+import 'bundle_cartesian.dart';
 import 'bundle_core.dart' as core;
-import 'chart_type_groups.dart';
-import 'registry_tools.dart';
-
-export 'bundle_core.dart';
-export 'chart_type_groups.dart';
+import 'bundle_financial.dart';
+import 'bundle_flow.dart';
+import 'bundle_geo.dart';
+import 'bundle_graph.dart';
+import 'bundle_hierarchical.dart';
+import 'bundle_matrix.dart';
+import 'bundle_pie.dart';
+import 'bundle_radial.dart';
 
 /// Basic/core bar chart registration.
 final barRegistration = core.coreBarRegistration;

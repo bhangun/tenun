@@ -1,6 +1,40 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tenun/charts/area/area_time_axis_chart.dart';
+import 'package:tenun/charts/area/large_scale_area_chart.dart';
+import 'package:tenun/charts/bar/bar_chart_variants.dart';
+import 'package:tenun/charts/bar/rainfall_chart.dart';
+import 'package:tenun/charts/box_plot/box_plot_chart.dart';
+import 'package:tenun/charts/bullet/bullet_chart.dart';
+import 'package:tenun/charts/calendar/calendar_chart.dart';
+import 'package:tenun/charts/candle/candlestick_ohlc_chart.dart';
+import 'package:tenun/charts/choroplet/choropleth_chart.dart';
+import 'package:tenun/charts/combo/combo_chart.dart';
+import 'package:tenun/charts/gantt/gantt_chart.dart';
+import 'package:tenun/charts/heatmap/heatmap_calendar_parallel_charts.dart';
+import 'package:tenun/charts/histogram/histogram_chart.dart';
+import 'package:tenun/charts/line/line_area_variants.dart';
+import 'package:tenun/charts/line/line_style_item_chart.dart';
+import 'package:tenun/charts/line/multi_x_axes_chart.dart';
+import 'package:tenun/charts/lollipop/lollipop_chart.dart';
+import 'package:tenun/charts/pararel/pararel_chart.dart';
+import 'package:tenun/charts/pie/customized_pie_chart.dart';
+import 'package:tenun/charts/pie/pie_chart_variants.dart';
+import 'package:tenun/charts/pie/pie_label_align_chart.dart';
+import 'package:tenun/charts/pie/pie_special_label_chart.dart';
+import 'package:tenun/charts/polar_bar/polar_bar_chart.dart';
+import 'package:tenun/charts/polar_line/polar_line_config.dart';
+import 'package:tenun/charts/radar/radar_config.dart';
+import 'package:tenun/charts/rigeline/ridgeline_strip_error_bar_charts.dart';
+import 'package:tenun/charts/sankey/sankey.dart';
+import 'package:tenun/charts/slope/slope_dumbbell_areabump_charts.dart';
+import 'package:tenun/charts/sparkline/sparkline_chart.dart';
+import 'package:tenun/charts/sunburst/sunburst.dart';
+import 'package:tenun/charts/trading/trading_charts.dart';
+import 'package:tenun/charts/treemap/treemap_chart.dart';
+import 'package:tenun/charts/violin/violin_chart.dart';
+import 'package:tenun/charts/waterfall/waterfall_chart.dart';
 import 'package:tenun/tenun.dart';
 
 void main() {

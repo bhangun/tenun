@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/json_value.dart';
+import 'package:tenun_core/core/json_value.dart';
 
 void main() {
   group('JsonValue cloning', () {

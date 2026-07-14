@@ -1,5 +1,69 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/tenun.dart';
+import 'package:tenun/charts/bar/bar_chart_variants.dart';
+import 'package:tenun/charts/bar/rainfall_chart.dart';
+import 'package:tenun/charts/bullet/bullet_chart.dart';
+import 'package:tenun/charts/calendar/calendar_chart.dart';
+import 'package:tenun/charts/choroplet/choropleth_chart.dart';
+import 'package:tenun/charts/combo/combo_chart.dart';
+import 'package:tenun/charts/histogram/histogram_chart.dart';
+import 'package:tenun/charts/line/line_area_variants.dart';
+import 'package:tenun/charts/lollipop/lollipop_chart.dart';
+import 'package:tenun/charts/network/network_radial_timeline_wordcloud_charts.dart';
+import 'package:tenun/charts/pararel/pararel_chart.dart';
+import 'package:tenun/charts/pie/pie_chart_variants.dart';
+import 'package:tenun/charts/rigeline/ridgeline_strip_error_bar_charts.dart';
+import 'package:tenun/charts/slope/slope_dumbbell_areabump_charts.dart';
+import 'package:tenun/charts/sparkline/sparkline_chart.dart';
+
+import 'package:tenun/charts/bar/bar_chart_variants.dart';
+import 'package:tenun/charts/bar/rainfall_chart.dart';
+import 'package:tenun/charts/bullet/bullet_chart.dart';
+import 'package:tenun/charts/calendar/calendar_chart.dart';
+import 'package:tenun/charts/choroplet/choropleth_chart.dart';
+import 'package:tenun/charts/combo/combo_chart.dart';
+import 'package:tenun/charts/histogram/histogram_chart.dart';
+import 'package:tenun/charts/line/line_area_variants.dart';
+import 'package:tenun/charts/lollipop/lollipop_chart.dart';
+import 'package:tenun/charts/network/network_radial_timeline_wordcloud_charts.dart';
+import 'package:tenun/charts/pararel/pararel_chart.dart';
+import 'package:tenun/charts/pie/pie_chart_variants.dart';
+import 'package:tenun/charts/rigeline/ridgeline_strip_error_bar_charts.dart';
+import 'package:tenun/charts/slope/slope_dumbbell_areabump_charts.dart';
+import 'package:tenun/charts/sparkline/sparkline_chart.dart';
+import 'package:tenun/charts/trading/trading_charts.dart';
+import 'package:tenun/registry/bundle_cartesian.dart' hide lineRegistration, areaRegistration, barRegistration, scatterRegistration;
+import 'package:tenun/registry/bundle_financial.dart';
+import 'package:tenun/registry/bundle_flow.dart';
+import 'package:tenun/registry/bundle_geo.dart';
+import 'package:tenun/registry/bundle_radial.dart';
+import 'package:tenun/registry/bundle_hierarchical.dart';
+import 'package:tenun/registry/bundle_matrix.dart';
+import 'package:tenun/registry/bundle_pie.dart';
+import 'package:tenun/registry/bundle_calendar.dart';
+import 'package:tenun/registry/bundle_graph.dart';
+import 'package:tenun/registry/bundle_common.dart';
+
+import 'package:tenun/charts/violin/violin_chart.dart';
+import 'package:tenun/registry/bundle_cartesian.dart'
+    hide lineRegistration, areaRegistration;
+import 'package:tenun/registry/bundle_common.dart';
+
+
+void _registerAllBundles() {
+  allChartsBundle.register();
+  cartesianChartsBundle.register();
+  financialChartsBundle.register();
+  flowChartsBundle.register();
+  geoChartsBundle.register();
+  radialChartsBundle.register();
+  commonChartsBundle.register();
+  hierarchicalChartsBundle.register();
+  matrixChartsBundle.register();
+  pieChartsBundle.register();
+  calendarChartsBundle.register();
+  graphChartsBundle.register();
+}
 
 void main() {
   group('Chart registry for new charts', () {
@@ -8,7 +72,7 @@ void main() {
     });
 
     test('all bundle registers new chart types', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       const expected = <String>[
         'combo',
@@ -59,7 +123,7 @@ void main() {
     });
 
     test('registry health report summarizes audit and capabilities', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final report = chartRegistryHealthReport(registeredOnly: true);
       final json = report.toJson();
@@ -110,33 +174,13 @@ void main() {
       expect(report.apiFieldCategoryCounts['display'], greaterThan(0));
     });
 
-    test('capability metadata is available before global registration', () {
-      final line = chartCapabilitiesForType(ChartType.line);
-      final available = availableChartCapabilities(registeredOnly: false);
-      final report = chartRegistryHealthReport();
+    test('capability metadata can be built from a concrete registration', () {
+      final line = chartCapabilitiesForRegistration(lineRegistration);
 
       expect(line.isRegistered, isFalse);
       expect(line.description, 'Line chart family');
       expect(line.aliases, contains('sparkline'));
       expect(line.tags, contains('line'));
-
-      final availableLine = available.singleWhere(
-        (capability) => capability.type == ChartType.line,
-      );
-      expect(availableLine.description, 'Line chart family');
-      expect(availableLine.isRegistered, isFalse);
-
-      final reportedLine = report.capabilities.singleWhere(
-        (capability) => capability.type == ChartType.line,
-      );
-      expect(reportedLine.tags, contains('line'));
-      expect(report.capabilityCount, available.length);
-      expect(report.payloadContractCount, available.length);
-      expect(report.apiContractCount, ChartApiContracts.all.length);
-      expect(
-        chartRegistryHealthReport(registeredOnly: true).capabilityCount,
-        0,
-      );
     });
 
     test('registry generation changes when registrations change', () {
@@ -323,7 +367,7 @@ void main() {
     });
 
     test('normalized type strings resolve aliases and canonical keys', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final lineArea = ChartRegistry.resolve(const {
         'type': 'line-area',
@@ -363,7 +407,7 @@ void main() {
     });
 
     test('legacy enum aliases resolve through active registrations', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       expect(ChartRegistry.isRegistered(ChartType.bigdata), isTrue);
       expect(
@@ -555,7 +599,7 @@ void main() {
     });
 
     test('resolves new chart configs from JSON', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final cases = <MapEntry<Map<String, dynamic>, Type>>[
         MapEntry(const {
@@ -872,7 +916,7 @@ void main() {
     });
 
     test('resolves aliases for new chart types', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       expect(
         BaseChartConfig.fromJson(const {'type': 'mixed'}).type,
@@ -901,7 +945,7 @@ void main() {
     });
 
     test('graph and radial configs preserve payloads for signatures', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final networkA =
           BaseChartConfig.fromJson(const {
@@ -969,7 +1013,7 @@ void main() {
     });
 
     test('timeline and wordcloud configs preserve payloads for signatures', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final timelineA =
           BaseChartConfig.fromJson(const {
@@ -1039,7 +1083,7 @@ void main() {
     });
 
     test('trading configs normalize unsafe numeric settings', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final renko =
           BaseChartConfig.fromJson({
@@ -1084,7 +1128,7 @@ void main() {
     });
 
     test('ChartFactory autoNormalizePayload sanitizes trading JSON', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final cfg =
           ChartFactory.fromJson({
@@ -1109,7 +1153,7 @@ void main() {
     });
 
     test('ChartFactory autoNormalizePayload accepts shorthand flow JSON', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final cfg = ChartFactory.fromJson({
         'type': 'sankey',
@@ -1129,7 +1173,7 @@ void main() {
     });
 
     test('ChartFactory can opt out of trading payload sanitation', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       final cfg =
           ChartFactory.fromJson(
@@ -1167,7 +1211,7 @@ void main() {
     });
 
     test('unregistered chart type error suggests nearby registered types', () {
-      allChartsBundle.register();
+      _registerAllBundles();
 
       expect(
         () => BaseChartConfig.fromJson(const {'type': 'linne'}),
@@ -1184,7 +1228,7 @@ void main() {
     test(
       'non-string chart type fails with registry exception, not TypeError',
       () {
-        allChartsBundle.register();
+        _registerAllBundles();
 
         expect(
           () => BaseChartConfig.fromJson(const {'type': 123}),

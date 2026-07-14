@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tenun/charts/candle/candlestick_ohlc_chart.dart';
 import 'package:tenun/tenun.dart';
 
 void main() {
@@ -6,6 +7,7 @@ void main() {
     setUp(() {
       ChartRegistry.clear();
       allChartsBundle.register();
+      financialChartsBundle.register();
       LargeDataSamplingConfig.enabled = true;
       LargeDataSamplingConfig.threshold = 200;
       LargeDataSamplingConfig.strategy = null;

@@ -18,12 +18,12 @@ import 'package:tenun/charts/sankey/sankey.dart';
 import 'package:tenun/charts/sunburst/sunburst.dart';
 import 'package:tenun/charts/treemap/treemap_chart.dart';
 import 'package:tenun/charts/waterfall/waterfall_chart.dart';
-import 'package:tenun/core/chart_axis_config.dart';
-import 'package:tenun/core/chart_model.dart';
-import 'package:tenun/core/chart_theme.dart';
-import 'package:tenun/core/chart_type.dart';
-import 'package:tenun/core/label.dart';
-import 'package:tenun/core/series.dart';
+import 'package:tenun_core/core/chart_axis_config.dart';
+import 'package:tenun_core/core/chart_model.dart';
+import 'package:tenun_core/core/chart_theme.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/label.dart';
+import 'package:tenun_core/core/series.dart';
 
 void main() {
   group('config factory robustness', () {

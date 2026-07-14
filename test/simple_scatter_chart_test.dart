@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/tenun_core.dart';
+import 'package:tenun/charts/bar/simple_bar_chart.dart';
+import 'package:tenun/charts/scatter/simple_scatter_chart.dart';
 
 void main() {
   const points = [

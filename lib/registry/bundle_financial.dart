@@ -6,8 +6,8 @@
 // This bundle remains temporarily for apps that still import the old
 // `package:tenun/registry/bundle_financial.dart` path.
 
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 // Chart config imports
 import '../charts/candle/candlestick_ohlc_chart.dart';

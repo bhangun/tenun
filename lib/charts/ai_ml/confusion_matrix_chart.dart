@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/chart_painter_base.dart';
-import '../../core/chart_cache.dart';
+import 'package:tenun_core/core/chart_painter_base.dart';
+import 'package:tenun_core/core/chart_cache.dart';
 import 'confusion_matrix_config.dart';
 
 class ConfusionMatrixChartWidget extends StatelessWidget {

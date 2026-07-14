@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tenun/registry/bundle_calendar.dart';
+import 'package:tenun/registry/bundle_cartesian.dart';
+import 'package:tenun/registry/bundle_common.dart';
+import 'package:tenun/registry/bundle_financial.dart';
+import 'package:tenun/registry/bundle_flow.dart';
+import 'package:tenun/registry/bundle_geo.dart';
+import 'package:tenun/registry/bundle_graph.dart';
+import 'package:tenun/registry/bundle_hierarchical.dart';
+import 'package:tenun/registry/bundle_matrix.dart';
+import 'package:tenun/registry/bundle_pie.dart';
+import 'package:tenun/registry/bundle_radial.dart';
 import 'package:tenun/tenun.dart';
 
 class _ProbeConfig extends BaseChartConfig {
@@ -56,6 +67,18 @@ void main() {
   group('TenunOption', () {
     setUp(() {
       ChartRegistry.clear();
+      allChartsBundle.register();
+      cartesianChartsBundle.register();
+      financialChartsBundle.register();
+      flowChartsBundle.register();
+      geoChartsBundle.register();
+      radialChartsBundle.register();
+      commonChartsBundle.register();
+      calendarChartsBundle.register();
+      graphChartsBundle.register();
+      hierarchicalChartsBundle.register();
+      matrixChartsBundle.register();
+      pieChartsBundle.register();
       ChartRegistry.register(_probeLineRegistration);
     });
 
@@ -158,7 +181,7 @@ void main() {
 
     test('tryBuild can capture parser failures without throwing', () {
       final option = TenunOption.fromJson(const {
-        'type': 'bar',
+        'type': 'unregistered_bar',
         'series': [
           {
             'data': [10, 20],

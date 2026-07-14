@@ -1,5 +1,5 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 // Chart config imports
 import '../charts/calendar/calendar_chart.dart';
@@ -30,8 +30,5 @@ final calendarPieRegistration = ChartRegistration(
 final calendarChartsBundle = RegistrationBundle(
   name: 'calendar',
   description: 'Calendar, Calendar Pie',
-  registrations: [
-    calendarRegistration,
-    calendarPieRegistration,
-  ],
+  registrations: [calendarRegistration, calendarPieRegistration],
 );

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../core/chart_animation_system.dart';
-import '../../core/chart_controller.dart';
-import '../../core/chart_data_value_reader.dart';
-import '../../core/chart_data_signature.dart';
-import '../../core/chart_data_processor.dart';
-import '../../core/zoom/chart_zoom_viewport.dart';
-import '../../core/utils/helper.dart';
+import 'package:tenun_core/core/chart_animation_system.dart';
+import 'package:tenun_core/core/chart_controller.dart';
+import 'package:tenun_core/core/chart_data_value_reader.dart';
+import 'package:tenun_core/core/chart_data_signature.dart';
+import 'package:tenun_core/core/chart_data_processor.dart';
+import 'package:tenun_core/core/zoom/chart_zoom_viewport.dart';
+import 'package:tenun_core/core/utils/helper.dart';
 import 'line_config.dart';
 
 class LineChartWidget extends StatefulWidget {

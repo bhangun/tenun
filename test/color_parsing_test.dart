@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/charts/bar/bar_chart.dart';
 import 'package:tenun/charts/bar/bar_config.dart';
-import 'package:tenun/core/chart_type.dart';
-import 'package:tenun/core/grid.dart';
-import 'package:tenun/core/label.dart';
-import 'package:tenun/core/legend.dart';
-import 'package:tenun/core/series.dart';
-import 'package:tenun/core/text_style.dart' as tenun_style;
-import 'package:tenun/core/title.dart';
-import 'package:tenun/core/utils/helper.dart';
-import 'package:tenun/core/xyaxis.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/grid.dart';
+import 'package:tenun_core/core/label.dart';
+import 'package:tenun_core/core/legend.dart';
+import 'package:tenun_core/core/series.dart';
+import 'package:tenun_core/core/text_style.dart' as tenun_style;
+import 'package:tenun_core/core/title.dart';
+import 'package:tenun_core/core/utils/helper.dart';
+import 'package:tenun_core/core/xyaxis.dart';
 
 void main() {
   group('Color parsing helpers', () {

@@ -9,7 +9,7 @@ void main() {
   testWidgets('ChartExportControls exports CSV and reports result', (
     tester,
   ) async {
-    final results = <ChartExportResult>[];
+    final results = [];
     final jobPlans = <ChartExportJobPlan>[];
     final jobProgress = <ChartExportJobProgress>[];
     final jobs = <ChartExportJobResult>[];

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/chart_interaction_layer.dart';
+import 'package:tenun/charts/indicator/indicator_chart.dart';
+import 'package:tenun_core/core/chart_interaction_layer.dart';
 import 'package:tenun/tenun.dart';
+import 'package:tenun_core/core/zoom/chart_drilldown_controller.dart';
+import 'package:tenun_core/tenun_core.dart';
 
 IndicatorChartConfig _indicator(String label, double value) =>
     IndicatorChartConfig(value: value, label: label);

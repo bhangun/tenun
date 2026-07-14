@@ -49,7 +49,7 @@ flutter pub get
 
 ### 1. Register Bundles (Tree-Shakeable)
 ```dart
-import 'package:tenun/tenun_core.dart';
+
 
 void main() {
   // Register only the chart families you need.
@@ -61,7 +61,7 @@ void main() {
 
 ### 2. Basic Usage
 ```dart
-import 'package:tenun/tenun_core.dart';
+
 
 TenunChart(
   jsonConfig: {
@@ -100,7 +100,7 @@ TenunChart(
 |--------|----------|
 | `TenunChart` | Basic config or JSON-driven rendering. |
 | `TenunChartFromJson` | Shorthand for JSON-only rendering with validation. |
-| `TenunChartJson` | ECharts-style option widget with safe forced type switching and non-throwing fallback. |
+| `TenunChartJson` | JSON option widget with safe forced type switching and non-throwing fallback. |
 | `ZoomableTenunChart` | Production-ready: includes pinch, pan, minimap, reset button. |
 | `DrillDownChartView` | Hierarchical drill-down with breadcrumbs & back navigation. |
 | `ExportableChart` | Wraps any chart with a managed `GlobalKey` for PNG/JPEG capture. |
@@ -109,7 +109,7 @@ TenunChart(
 
 `TenunChartJson` defaults to safe JSON building. Use `onBuildResult` for payload/build diagnostics, `onSwitchResult` to surface blocked or warning-producing `forceType` switches, `errorBuilder` for invalid payload UI, and `switchErrorBuilder` for custom blocked-switch UI in editors, previews, and runtime chart switchers.
 
-### 🔄 JSON Configuration (ECharts-Style)
+### 🔄 JSON Configuration 
 Tenun uses a unified JSON schema. All optional fields are documented below.
 
 ```json
@@ -514,17 +514,24 @@ final xlsxBytes = ChartExporter.toXlsx(myConfig, sheetName: 'Monthly Metrics');
 | **Specialized & Misc** | `heatmap`, `calendar`, `wordcloud`, `parallel`, `sparkline`, `custom` |
 | **Variants (v3)** | `barRace`, `barGradient`, `barRounded`, `lineConfidenceBand`, `lineMarkline`, `logAxis`, `functionPlot`, `dynamicTimeSeries`, `largeScaleArea`, `areaTimeAxis`, `customizedPie`, `pieLabelAlign`, `pieSpecialLabel` |
 
----
 
-## 🛠️ Best Practices
+## 🚀 Quick Start
 
-1. **Always wrap in `RepaintBoundary`** (built into `ChartPainterWidget`).
-2. **Use `ZoomableTenunChart`** for production apps to avoid re-implementing gestures.
-3. **Enable sampling** for datasets >1000 points. Set `LargeDataSamplingConfig.threshold`.
-4. **Cache heavy configs** if reusing across screens. `BaseChartConfig` is immutable & safe.
-5. **Dispose controllers** when navigating away: `chartCtrl.dispose()`, `zoomCtrl.dispose()`.
-6. **Use `intl` for formatters**: `TenunFormatters.compact(value, locale: 'en_US')`.
-7. **Validate payloads** in CI/CD pipelines using `ChartConfigValidator.validateJsonPayload()`.
+### 1. Register Chart Bundles
+Register only the chart types you need. Unregistered types are tree-shaken at compile time.
+
+```dart
+void main() {
+  // Core: bar, line, area, pie, scatter, donut
+  coreChartsBundle.register();
+  
+  // Optional: sankey, treemap, gantt, sunburst
+  // advancedChartsBundle.register();
+  
+  runApp(const MyApp());
+}
+```
+
 
 ---
 
@@ -574,43 +581,6 @@ void main() {
 
 ---
 
-# 📘 Tenun Charting Library – Developer Guide
-
-**Version:** 1.0+ | **Platform:** Flutter/Dart  
-**Tenun** is an enterprise-grade, tree-shakeable, JSON-driven charting library featuring ~60+ chart types, hardware-accelerated rendering, and seamless drill-down interactions.
-
----
-
-## 🏗 Architecture Highlights
-
-| Component | Purpose |
-|-----------|---------|
-| `ChartRegistry` | Tree-shakeable type registry. Only registered charts are bundled. |
-| `ChartRenderPipeline` | Layered rendering (Background → Grid → Data → Labels → Tooltip). Reduces repaints. |
-| `ChartPainterBase` | Abstract base with zero-allocation helpers (`pathCache`, `textPainterCache`, grid/axis drawing). |
-| `ChartZoomState` | Immutable zoom/pan state. Enables momentum fling and history stacking. |
-| `ChartDrillDownController` | Hierarchical navigation stack for Year → Quarter → Month drill-downs. |
-| `LargeDataSamplingConfig` | Global sampler settings (LTTB, MinMax, Nth) for 50k+ point datasets. |
-
----
-
-## 🚀 Quick Start
-
-### 1. Register Chart Bundles
-Register only the chart types you need. Unregistered types are tree-shaken at compile time.
-
-```dart
-void main() {
-  // Core: bar, line, area, pie, scatter, donut
-  coreChartsBundle.register();
-  
-  // Optional: sankey, treemap, gantt, sunburst
-  // advancedChartsBundle.register();
-  
-  runApp(const MyApp());
-}
-```
-
 ### 2. Basic Usage
 ```dart
 TenunChart(
@@ -628,7 +598,7 @@ TenunChart(
 
 ## ⚙️ Configuration API
 
-Tenun supports both **JSON-driven** (ECharts-style) and **programmatic** configurations.
+Tenun supports both **JSON-driven**  and **programmatic** configurations.
 
 ### JSON Schema
 ```json

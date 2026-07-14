@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/tenun_core.dart';
+import 'package:tenun/charts/area/simple_area_chart.dart';
+import 'package:tenun/charts/common/simple_chart_reference_line.dart';
+import 'package:tenun/charts/line/simple_line_chart.dart';
+import 'package:tenun/charts/line/simple_sparkline_chart.dart';
 
 void main() {
   const revenue = SimpleTrendSeries(

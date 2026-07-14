@@ -1,7 +1,7 @@
-import '../../core/chart_type.dart';
-import '../../core/json_value.dart';
-import '../../core/series.dart';
-import '../../core/xyaxis.dart';
+import 'package:tenun_core/core/chart_type.dart';
+import 'package:tenun_core/core/json_value.dart';
+import 'package:tenun_core/core/series.dart';
+import 'package:tenun_core/core/xyaxis.dart';
 
 class LineSeries extends Series {
   bool? smooth;

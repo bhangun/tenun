@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tenun/core/chart_axis_config.dart';
-import 'package:tenun/tenun_core.dart';
+import 'package:tenun/tenun.dart';
+import 'package:tenun_core/core/chart_axis_config.dart';
 
 void main() {
   group('Core config parsing', () {

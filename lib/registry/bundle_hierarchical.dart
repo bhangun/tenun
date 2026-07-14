@@ -1,5 +1,5 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
 
 // Chart config imports
 import '../charts/treemap/treemap_chart.dart';
@@ -29,8 +29,5 @@ final nextSunburstRegistration = ChartRegistration(
 final hierarchicalChartsBundle = RegistrationBundle(
   name: 'hierarchical',
   description: 'Treemap, Sunburst',
-  registrations: [
-    treemapRegistration,
-    nextSunburstRegistration,
-  ],
+  registrations: [treemapRegistration, nextSunburstRegistration],
 );

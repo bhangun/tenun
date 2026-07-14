@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/tenun.dart';
+import 'package:tenun_core/tenun_core.dart';
 
 void main() {
   group('ChartDataProcessor processing cache', () {

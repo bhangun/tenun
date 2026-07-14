@@ -1,5 +1,6 @@
-import '../core/chart_registry.dart';
-import '../core/chart_type.dart';
+import 'package:tenun_core/core/chart_registry.dart';
+import 'package:tenun_core/core/chart_type.dart';
+
 import '../charts/ai_ml/confusion_matrix_config.dart';
 import '../charts/ai_ml/roc_curve_config.dart';
 
@@ -24,8 +25,5 @@ final rocCurveRegistration = ChartRegistration(
 final aiMLChartsBundle = RegistrationBundle(
   name: 'ai_ml',
   description: 'Confusion Matrix, ROC Curve',
-  registrations: [
-    confusionMatrixRegistration,
-    rocCurveRegistration,
-  ],
+  registrations: [confusionMatrixRegistration, rocCurveRegistration],
 );

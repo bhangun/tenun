@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tenun/tenun.dart';
+import 'package:tenun_core/core/chart_zip_store_writer.dart';
+import 'package:tenun_core/tenun_core.dart';
 
 void main() {
   test('exports chart data as rows and CSV', () {
