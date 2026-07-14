@@ -14,8 +14,9 @@ dependencies:
     sdk: flutter
   image: ^4.5.4
   intl: ^0.20.2
-  tenun_core:
-    path: ../tenun_core
+  tenun_core: ^0.1.0
+  #tenun_core:
+  #  path: ../tenun_core
 
 dev_dependencies:
   flutter_test:
